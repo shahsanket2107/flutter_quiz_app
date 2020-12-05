@@ -6,9 +6,20 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var questionIndex = 0;
+
+// _ (underscore) before a variable name or a class name denotes that it is private
+
   void answerQuestion() {
-    print("Answer chosen!");
+    setState(() {
+      questionIndex += 1;
+    });
   }
 
   @override
@@ -26,28 +37,22 @@ class MyApp extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Text('Choose one option'),
+              Text(questions[questionIndex]),
               RaisedButton(
                 child: Text('Answer 1'),
                 onPressed: answerQuestion,
               ),
               RaisedButton(
                 child: Text('Answer 2'),
-                onPressed: () {
-                  print("Answer 2 chosen!!");
-                },
+                onPressed: answerQuestion,
               ),
               RaisedButton(
                 child: Text('Answer 3'),
-                onPressed: () {
-                  print("Answer 3 chosen !!");
-                },
+                onPressed: answerQuestion,
               ),
               RaisedButton(
                 child: Text('Answer 4'),
-                onPressed: () {
-                  print("Answer 4 chosen !!");
-                },
+                onPressed: answerQuestion,
               )
             ],
           )),
