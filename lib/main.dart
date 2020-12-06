@@ -16,23 +16,38 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       "questionText": "What is your nationality?",
-      "answers": ["Indian", "Pakistani", "Chinese", "American"],
+      "answers": [
+        {"text": "Indian", "score": 40},
+        {"text": "Pakistani", "score": 20},
+        {"text": "Chinese", "score": 10},
+        {"text": "American", "score": 30},
+      ],
     },
     {
       "questionText": "What is your favourite color?",
-      "answers": ["Blue", "Red", "Green", "Yellow"],
+      "answers": [
+        {"text": "Blue", "score": 40},
+        {"text": "Red", "score": 20},
+        {"text": "Green", "score": 30},
+        {"text": "Yellow", "score": 10}
+      ],
     },
     {
       "questionText": "What is your gender?",
-      "answers": ["Male", "Female", "Other"],
+      "answers": [
+        {"text": "Male", "score": 20},
+        {"text": "Female", "score": 20},
+        {"text": "Other", "score": 20}
+      ],
     }
   ];
 
   var questionIndex = 0;
-
+  var _totalScore = 0;
 // _ (underscore) before a variable name or a class name denotes that it is private
 
-  void answerQuestion() {
+  void answerQuestion(int score) {
+    _totalScore += score;
     setState(() {
       questionIndex += 1;
     });
@@ -41,6 +56,13 @@ class _MyAppState extends State<MyApp> {
     } else {
       print("No more questions left");
     }
+  }
+
+  void _resetQuiz() {
+    setState(() {
+      questionIndex = 0;
+      _totalScore = 0;
+    });
   }
 
   @override
@@ -57,7 +79,7 @@ class _MyAppState extends State<MyApp> {
                   questionIndex: questionIndex,
                   questions: _questions,
                 )
-              : Result()),
+              : Result(_totalScore, _resetQuiz)),
     );
   }
 }
