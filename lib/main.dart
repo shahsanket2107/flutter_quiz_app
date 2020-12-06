@@ -24,9 +24,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      "What is your name?",
-      "What is your favourite color?",
-      "What is your favourite food?"
+      {
+        "questionText": "What is your nationality?",
+        "answers": ["Indian", "Pakistani", "Chinese", "American"],
+      },
+      {
+        "questionText": "What is your favourite color?",
+        "answers": ["Blue", "Red", "Green", "Yellow"],
+      },
+      {
+        "questionText": "What is your gender?",
+        "answers": ["Male", "Female", "Other"],
+      }
     ];
     return MaterialApp(
       title: 'First App',
@@ -36,11 +45,12 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: [
-              Question(questions[questionIndex]),
-              Answer(answerQuestion),
-              Answer(answerQuestion),
-              Answer(answerQuestion),
-              Answer(answerQuestion),
+              Question(questions[questionIndex]['questionText']),
+              ...(questions[questionIndex]['answers'] as List<String>)
+                  .map((answer) {
+                print(answer);
+                return Answer(answerQuestion, answer);
+              })
             ],
           )),
     );
