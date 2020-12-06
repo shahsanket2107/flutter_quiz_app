@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './question.dart';
 import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final questions = const [
+  final _questions = const [
     {
       "questionText": "What is your nationality?",
       "answers": ["Indian", "Pakistani", "Chinese", "American"],
@@ -34,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       questionIndex += 1;
     });
-    if (questionIndex < questions.length) {
+    if (questionIndex < _questions.length) {
       print("More questions are left");
     } else {
       print("No more questions left");
@@ -49,21 +51,13 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: Text('First App'),
           ),
-          body: questionIndex < questions.length
-              ? Column(
-                  children: [
-                    Question(questions[questionIndex]['questionText']),
-                    ...(questions[questionIndex]['answers'] as List<String>)
-                        .map((answer) {
-                      print(answer);
-                      return Answer(answerQuestion, answer);
-                    })
-                  ],
+          body: questionIndex < _questions.length
+              ? Quiz(
+                  answerQuestion: answerQuestion,
+                  questionIndex: questionIndex,
+                  questions: _questions,
                 )
-              : Center(
-                  child:
-                      Text("Quiz is over!!!", style: TextStyle(fontSize: 28)),
-                )),
+              : Result()),
     );
   }
 }
